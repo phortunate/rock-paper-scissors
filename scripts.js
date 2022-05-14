@@ -38,30 +38,72 @@ function getPlayerSelection() {
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === "Paper") {
         if (computerSelection === "Rock") {
-            return `You Win! ${playerSelection} beats ${computerSelection}`;
+            return 1;
         } 
         if (computerSelection === "Scissors"){
-            return `You Lose! ${computerSelection} beats ${playerSelection}`
+            return 0;
         }
     } 
     if (playerSelection === "Rock") {
         if (computerSelection === "Scissors") {
-            return `You Win! ${playerSelection} beats ${computerSelection}`;
+            return 1;
         } 
         if (computerSelection === "Paper"){
-            return `You Lose! ${computerSelection} beats ${playerSelection}`;
+            return 0;
         }
     }
     if (playerSelection === "Scissors") {
         if (computerSelection === "Paper") {
-            return `You Win! ${playerSelection} beats ${computerSelection}`;
+            return 1;
         } 
         if (computerSelection === "Rock"){
-            return `You Lose! ${computerSelection} beats ${playerSelection}`;
+            return 0;
         }
     }
     // This must be a tie
-    return `It's a tie! ${playerSelection} ties with ${computerSelection}`;
+    return 2;
+}
+// console.log(playRound(getPlayerSelection(),computerPlay()) === null);
+
+function playGame(rounds) {
+    let playerScore = 0;
+    let computerScore = 0;
+
+
+    for (let i = 1; i <= rounds; i++) {
+        
+        let playerSelection = getPlayerSelection();
+        let computerSelection = computerPlay();
+        
+        // Player canceled on input screen
+        if (playerSelection === null) {
+            console.log("Game canceled.")
+            return;
+        }
+
+        let result = playRound(playerSelection, computerSelection);
+
+        //Computer wins round
+        if (result === 0) {
+            console.log(`Round ${i}: You Lose! ${computerSelection} beats ${playerSelection}.`);
+            ++computerScore;
+        // Player wins round
+        } else if (result === 1) {
+            console.log(`Round ${i}: You Win! ${playerSelection} beats ${computerSelection}.`);
+            ++playerScore;
+        // Tie
+        } else {
+            console.log(`Round ${i}: It's a tie. ${playerSelection} ties with ${computerSelection}`);
+        }
+    }
+
+    if (playerScore > computerScore) {
+        console.log(`Victory! You won!`);
+    } else if (playerScore < computerScore) {
+        console.log(`Defeat! You lost.`);
+    } else {
+        console.log(`It's a tie.`);
+    }
 }
 
-playRound(getPlayerSelection, computerPlay);
+playGame(5);
