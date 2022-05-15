@@ -23,7 +23,7 @@ function capitalizeFirstLetter(string) {
 function getPlayerSelection() {
     let input;
     do {
-        input = prompt("Play Rock Paper Scissors! \nWhat's your choice?");
+        input = prompt("Play Rock Paper Scissors! \nType Rock, Paper, or Scissors \nWhat's your choice?");
         // If the prompt is canceled
         if (input === null) {
             break;
