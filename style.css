@@ -114,10 +114,23 @@ h1 {
   background-size: cover;
   border: none;
   width: 100px;
-  height: 100px;
+  height: 100px; 
   transition: transform .2s;
 }
 
 .player-weapons button:hover {
   transform: scale(1.3);
+}
+
+.fight-container img {
+  width: 300px;
+  height: auto; 
+}
+
+.fight-container {
+  flex: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 3em;
 }

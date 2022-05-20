@@ -130,8 +130,14 @@ function playRound(playerSelection, computerSelection) {
 //     }
 // });
 
-const btnRock = document.querySelector(".rock");
 const userPrompt = document.querySelector(".user-prompt");
-btnRock.addEventListener("click", () => {
+const fightContainer = document.querySelector(".fight-container");
+const playerAttacks = Array.from(document.querySelectorAll(".p-attack"));
+const playerSelection = document.querySelector(".player-selection");
+
+playerAttacks.forEach(attack => attack.addEventListener("click", (e) => {
     if (userPrompt.style.display !== "none") userPrompt.style.display = "none";
-});
+    if (fightContainer.style.display !== "flex") fightContainer.style.display = "flex";
+    playerSelection.src=`./images/${e.target.classList[0]}.png`
+    console.log(e.target.classList[0]);
+}));
