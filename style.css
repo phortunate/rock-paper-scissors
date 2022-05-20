@@ -1,6 +1,7 @@
 html {
   box-sizing: border-box;
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
@@ -9,6 +10,7 @@ html {
   margin: 0;
   padding: 0;
 }
+
 body {
   display: flex;
   align-items: center;
@@ -31,13 +33,19 @@ h1 {
   font-weight: bold;
 }
 
-.game-container {
-  display: flex;
-  width: 800px;
-  height: 400px;
-  background-color: #F9F9FB;
+.game-container,
+.game-container__start,
+.game-container__play {
   border-radius: 18px;
 }
+
+.game-container {
+  display: flex;
+  width: 1200px;
+  height: 600px;
+  background-color: #F9F9FB;
+}
+
 .game-container__start {
   flex: 1;
   display: flex;
@@ -51,5 +59,65 @@ h1 {
 }
 
 .game-container__play {
-  background-color: #1B4965;
+  flex: 1;
+  background-color: #FFF1D0;
+  padding: 1em;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.score-bar {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 4px solid black;
+}
+
+.player-weapons img,
+.computer-weapons img {
+  width: 100px;
+  height: auto;
+}
+
+.play-area {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.player-weapons,
+.computer-weapons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.user-prompt {
+  display: flex;
+  align-items: center;
+}
+
+.rock {
+  background-image: url(./images/rock.png);
+}
+
+.paper {
+  background-image: url(./images/paper.png);
+}
+
+.scissors {
+  background-image: url(./images/scissors.png);
+}
+
+.player-weapons button {
+  background-color: transparent;
+  background-size: cover;
+  border: none;
+  width: 100px;
+  height: 100px;
+  transition: transform .2s;
+}
+
+.player-weapons button:hover {
+  transform: scale(1.3);
 }

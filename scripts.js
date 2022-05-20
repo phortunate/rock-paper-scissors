@@ -111,19 +111,27 @@ function playRound(playerSelection, computerSelection) {
 //     rounds.style.display = "block";
 // });
 
-const btnPlayGame = document.querySelector(".game-container__start .btn");
+// -------------Button Logic -------------------------
 
-btnPlayGame.addEventListener("click", (e) => {
-    const gcStart = document.querySelector("." + e.target.parentNode.className);
-    gcStart.style.display = "none";
-});
+// const btnPlayGame = document.querySelector(".game-container__start .btn");
 
-const btnToggle = document.querySelector(".toggle");
-btnToggle.addEventListener("click", () => {
-    const startScreen = document.querySelector(".game-container__start");
-    if (startScreen.style.display !== "none") {
-        startScreen.style.display = "none";
-    } else {
-        startScreen.style.display = "flex";
-    }
+// btnPlayGame.addEventListener("click", (e) => {
+//     const gcStart = document.querySelector("." + e.target.parentNode.className);
+//     gcStart.style.display = "none";
+// });
+
+// const btnToggle = document.querySelector(".toggle");
+// btnToggle.addEventListener("click", () => {
+//     const startScreen = document.querySelector(".game-container__start");
+//     if (startScreen.style.display !== "none") {
+//         startScreen.style.display = "none";
+//     } else {
+//         startScreen.style.display = "flex";
+//     }
+// });
+
+const btnRock = document.querySelector(".rock");
+const userPrompt = document.querySelector(".user-prompt");
+btnRock.addEventListener("click", () => {
+    if (userPrompt.style.display !== "none") userPrompt.style.display = "none";
 });
