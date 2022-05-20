@@ -1,9 +1,9 @@
 function computerPlay() {
     let randomInt = getRandomIntInclusive(1,3);
     switch (randomInt) {
-        case 1: return "Rock";
-        case 2: return "Paper";
-        case 3: return "Scissors";
+        case 1: return "rock";
+        case 2: return "paper";
+        case 3: return "scissors";
     }
 }
 
@@ -14,9 +14,9 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
+// function capitalizeFirstLetter(string) {
+//     return string.charAt(0).toUpperCase() + string.slice(1);
+// }
 
 // Retuns a lower case selection of rock, paper, or scissors. If canceled null is returned.
 function getPlayerSelection() {
@@ -134,10 +134,14 @@ const userPrompt = document.querySelector(".user-prompt");
 const fightContainer = document.querySelector(".fight-container");
 const playerAttacks = Array.from(document.querySelectorAll(".p-attack"));
 const playerSelection = document.querySelector(".player-selection");
+const computerSelection = document.querySelector(".computer-selection");
 
 playerAttacks.forEach(attack => attack.addEventListener("click", (e) => {
     if (userPrompt.style.display !== "none") userPrompt.style.display = "none";
     if (fightContainer.style.display !== "flex") fightContainer.style.display = "flex";
-    playerSelection.src=`./images/${e.target.classList[0]}.png`
-    console.log(e.target.classList[0]);
+    playerSelection.src=`./images/${e.target.classList[0]}.png`;
+    const computerChoice = computerPlay();
+    computerSelection.src=`./images/${computerChoice}.png`;
+
+
 }));
