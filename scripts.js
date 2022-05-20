@@ -4,7 +4,6 @@ function computerPlay() {
         case 1: return "Rock";
         case 2: return "Paper";
         case 3: return "Scissors";
-        default:
     }
 }
 
@@ -65,45 +64,66 @@ function playRound(playerSelection, computerSelection) {
 }
 // console.log(playRound(getPlayerSelection(),computerPlay()) === null);
 
-function playGame(rounds) {
-    let playerScore = 0;
-    let computerScore = 0;
+// function playGame(rounds) {
+//     let playerScore = 0;
+//     let computerScore = 0;
 
 
-    for (let i = 1; i <= rounds; i++) {
+//     for (let i = 1; i <= rounds; i++) {
         
-        let playerSelection = getPlayerSelection();
-        let computerSelection = computerPlay();
+//         let playerSelection = getPlayerSelection();
+//         let computerSelection = computerPlay();
         
-        // Player canceled on input screen
-        if (playerSelection === null) {
-            console.log("Game canceled.")
-            return;
-        }
+//         // Player canceled on input screen
+//         if (playerSelection === null) {
+//             console.log("Game canceled.")
+//             return;
+//         }
 
-        let result = playRound(playerSelection, computerSelection);
+//         let result = playRound(playerSelection, computerSelection);
 
-        //Computer wins round
-        if (result === 0) {
-            console.log(`Round ${i}: You Lose! ${computerSelection} beats ${playerSelection}.`);
-            ++computerScore;
-        // Player wins round
-        } else if (result === 1) {
-            console.log(`Round ${i}: You Win! ${playerSelection} beats ${computerSelection}.`);
-            ++playerScore;
-        // Tie
-        } else {
-            console.log(`Round ${i}: It's a tie. ${playerSelection} ties with ${computerSelection}`);
-        }
-    }
+//         //Computer wins round
+//         if (result === 0) {
+//             console.log(`Round ${i}: You Lose! ${computerSelection} beats ${playerSelection}.`);
+//             ++computerScore;
+//         // Player wins round
+//         } else if (result === 1) {
+//             console.log(`Round ${i}: You Win! ${playerSelection} beats ${computerSelection}.`);
+//             ++playerScore;
+//         // Tie
+//         } else {
+//             console.log(`Round ${i}: It's a tie. ${playerSelection} ties with ${computerSelection}`);
+//         }
+//     }
 
-    if (playerScore > computerScore) {
-        console.log(`Victory! You won!`);
-    } else if (playerScore < computerScore) {
-        console.log(`Defeat! You lost.`);
+//     if (playerScore > computerScore) {
+//         console.log(`Victory! You won!`);
+//     } else if (playerScore < computerScore) {
+//         console.log(`Defeat! You lost.`);
+//     } else {
+//         console.log(`It's a tie.`);
+//     }
+// }
+
+// const rounds = document.querySelector(".rounds");
+// const btn = document.querySelector(".btn");
+// btn.addEventListener("click", () => {
+//     rounds.style.display = "block";
+// });
+
+const btnPlayGame = document.querySelector(".game-container__start .btn");
+
+btnPlayGame.addEventListener("click", (e) => {
+    const gcStart = document.querySelector("." + e.target.parentNode.className);
+    gcStart.style.display = "none";
+});
+
+const btnToggle = document.querySelector(".toggle");
+btnToggle.addEventListener("click", () => {
+    const startScreen = document.querySelector(".game-container__start");
+    if (startScreen.style.display !== "none") {
+        startScreen.style.display = "none";
     } else {
-        console.log(`It's a tie.`);
+        startScreen.style.display = "flex";
     }
-}
-
-playGame(5);
+});
