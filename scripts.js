@@ -1,11 +1,3 @@
-function computerPlay() {
-    let randomInt = getRandomIntInclusive(1,3);
-    switch (randomInt) {
-        case 1: return "rock";
-        case 2: return "paper";
-        case 3: return "scissors";
-    }
-}
 
 // Returns a random int between min and max exclusively
 function getRandomIntInclusive(min, max) {
@@ -14,48 +6,52 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 // function capitalizeFirstLetter(string) {
 //     return string.charAt(0).toUpperCase() + string.slice(1);
 // }
 
 // Retuns a lower case selection of rock, paper, or scissors. If canceled null is returned.
-function getPlayerSelection() {
-    let input;
-    do {
-        input = prompt("Play Rock Paper Scissors! \nType Rock, Paper, or Scissors \nWhat's your choice?");
-        // If the prompt is canceled
-        if (input === null) {
-            break;
-        }
-        input = capitalizeFirstLetter(input.toLowerCase());
-    } 
-    while (input !== "Rock" && input !== "Paper" && input !== "Scissors");
+// function getPlayerSelection() {
+//     let input;
+//     do {
+//         input = prompt("Play Rock Paper Scissors! \nType Rock, Paper, or Scissors \nWhat's your choice?");
+//         // If the prompt is canceled
+//         if (input === null) {
+//             break;
+//         }
+//         input = capitalizeFirstLetter(input.toLowerCase());
+//     } 
+//     while (input !== "Rock" && input !== "Paper" && input !== "Scissors");
     
-    return input;
-}
+//     return input;
+// }
 
 function playRound(playerSelection, computerSelection) {
-    if (playerSelection === "Paper") {
-        if (computerSelection === "Rock") {
+    if (playerSelection === "paper") {
+        if (computerSelection === "rock") {
             return 1;
         } 
-        if (computerSelection === "Scissors"){
+        if (computerSelection === "scissors"){
             return 0;
         }
     } 
-    if (playerSelection === "Rock") {
-        if (computerSelection === "Scissors") {
+    if (playerSelection === "rock") {
+        if (computerSelection === "scissors") {
             return 1;
         } 
-        if (computerSelection === "Paper"){
+        if (computerSelection === "paper"){
             return 0;
         }
     }
-    if (playerSelection === "Scissors") {
-        if (computerSelection === "Paper") {
+    if (playerSelection === "scissors") {
+        if (computerSelection === "paper") {
             return 1;
         } 
-        if (computerSelection === "Rock"){
+        if (computerSelection === "rock"){
             return 0;
         }
     }
@@ -113,26 +109,10 @@ function playRound(playerSelection, computerSelection) {
 
 // -------------Button Logic -------------------------
 
-// const btnPlayGame = document.querySelector(".game-container__start .btn");
-
-// btnPlayGame.addEventListener("click", (e) => {
-//     const gcStart = document.querySelector("." + e.target.parentNode.className);
-//     gcStart.style.display = "none";
-// });
-
-// const btnToggle = document.querySelector(".toggle");
-// btnToggle.addEventListener("click", () => {
-//     const startScreen = document.querySelector(".game-container__start");
-//     if (startScreen.style.display !== "none") {
-//         startScreen.style.display = "none";
-//     } else {
-//         startScreen.style.display = "flex";
-//     }
-// });
-
 const userPrompt = document.querySelector(".user-prompt");
 const fightContainer = document.querySelector(".fight-container");
 const playerAttacks = Array.from(document.querySelectorAll(".p-attack"));
+const computerAttacks = Array.from(document.querySelectorAll(".c-attack"));
 const playerSelection = document.querySelector(".player-selection");
 const computerSelection = document.querySelector(".computer-selection");
 
@@ -140,8 +120,50 @@ playerAttacks.forEach(attack => attack.addEventListener("click", (e) => {
     if (userPrompt.style.display !== "none") userPrompt.style.display = "none";
     if (fightContainer.style.display !== "flex") fightContainer.style.display = "flex";
     playerSelection.src=`./images/${e.target.classList[0]}.png`;
-    const computerChoice = computerPlay();
-    computerSelection.src=`./images/${computerChoice}.png`;
 
-
+    const computerChoice = getComputerChoice();
+    showAnimation(computerChoice.number, () => {
+        computerSelection.src=`./images/${computerChoice.attack}.png`;
+    });
+    // computerSelection.src=`./images/${computerChoice.attack}.png`
+    // const computerChoice = computerPlay();
+    // computerSelection.src=`./images/${computerChoice}.png`;
+    
+    
 }));
+
+
+function getComputerChoice() {
+    const randomInt = getRandomIntInclusive(1,3);
+    let attackName = "";
+    switch (randomInt) {
+        case 1: 
+            attackName = "rock";
+            break;
+        case 2: 
+            attackName = "paper";
+            break;
+        case 3: 
+            attackName = "scissors";
+            break;
+    }
+    let computerChoice = {
+        number: randomInt,
+        attack: attackName 
+    };
+    return computerChoice;
+}
+
+
+
+async function showAnimation (attackNumber, callback) {
+    let attackSelection = 0;
+    const loopLength = 12 + attackNumber;
+    for ( let i = 1; i <= loopLength; i++) {
+        computerAttacks[attackSelection].style.border = "4px solid #DD1C1A";
+        await sleep(200);
+        if (i !== loopLength) computerAttacks[attackSelection].style.border = "none";
+        attackSelection === 2 ? attackSelection = 0: attackSelection++;  
+    }
+    callback();
+}

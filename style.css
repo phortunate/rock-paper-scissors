@@ -109,7 +109,8 @@ h1 {
   background-image: url(./images/scissors.png);
 }
 
-.player-weapons button {
+.player-weapons button,
+.computer-weapons button {
   background-color: transparent;
   background-size: cover;
   border: none;
@@ -117,6 +118,7 @@ h1 {
   height: 100px; 
   transition: transform .2s;
 }
+
 
 .player-weapons button:hover {
   transform: scale(1.3);
@@ -134,3 +136,14 @@ h1 {
   justify-content: center;
   gap: 3em;
 }
+
+.fight-container .versus {
+  font-size: 32px;
+  font-weight: bold;
+  color: #DD1C1A;
+}
+
+/* .c-rock {
+  border: 4px solid #DD1C1A;
+  border-radius: 8px;
+} */
