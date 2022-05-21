@@ -113,25 +113,46 @@ const userPrompt = document.querySelector(".user-prompt");
 const fightContainer = document.querySelector(".fight-container");
 const playerAttacks = Array.from(document.querySelectorAll(".p-attack"));
 const computerAttacks = Array.from(document.querySelectorAll(".c-attack"));
-const playerSelection = document.querySelector(".player-selection");
-const computerSelection = document.querySelector(".computer-selection");
+const playerContainer = document.querySelector(".player-selection");
+const computerContainer = document.querySelector(".computer-selection");
+const playerScore = document.querySelector(".player-score");
+const computerScore = document.querySelector(".computer-score");
+const roundCount = document.querySelector(".round-count");
 
 playerAttacks.forEach(attack => attack.addEventListener("click", (e) => {
     if (userPrompt.style.display !== "none") userPrompt.style.display = "none";
     if (fightContainer.style.display !== "flex") fightContainer.style.display = "flex";
-    playerSelection.src=`./images/${e.target.classList[0]}.png`;
-
+    const playerChoice = e.target.classList[0]
     const computerChoice = getComputerChoice();
+    playerContainer.src=`./images/${playerChoice}.png`;
+
+    
     showAnimation(computerChoice.number, () => {
-        computerSelection.src=`./images/${computerChoice.attack}.png`;
+        computerContainer.src=`./images/${computerChoice.attack}.png`;
+        const roundWinner = playRound(playerChoice, computerChoice.attack);
+        if (roundWinner === 1) {
+            updateScore(playerScore);
+        } else if (roundWinner === 0) {
+            updateScore(computerScore);
+        } else {
+            console.log("It's a tie");
+        }
+        updateRound(roundCount);
     });
-    // computerSelection.src=`./images/${computerChoice.attack}.png`
-    // const computerChoice = computerPlay();
-    // computerSelection.src=`./images/${computerChoice}.png`;
-    
-    
 }));
 
+function updateScore(score) {
+    const user = score.textContent.slice(0, -1);
+    const newScore = parseInt(score.textContent.slice(-1), 10) + 1;
+    score.textContent = user + newScore;
+
+}
+
+function updateRound(round) {
+    const roundText = round.textContent.slice(0, -1);
+    const newRound = parseInt(round.textContent.slice(-1), 10) + 1;
+    round.textContent = roundText + newRound;
+}
 
 function getComputerChoice() {
     const randomInt = getRandomIntInclusive(1,3);
