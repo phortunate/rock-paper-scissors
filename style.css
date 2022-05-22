@@ -24,25 +24,17 @@ h1 {
   color: #fff;
 }
 
-.btn {
-  background-color: #3E64FF;
-  color: #FFFFFF;
-  padding: 11px 16px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
 .game-container,
 .game-container__start,
-.game-container__play {
+.game-container__play,
+.end-screen {
   border-radius: 18px;
 }
 
 .game-container {
   display: flex;
   width: 1200px;
-  height: 600px;
+  height: 700px;
   background-color: #F9F9FB;
 }
 
@@ -95,6 +87,10 @@ h1 {
 .user-prompt {
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  font-size: 24px;
 }
 
 .rock {
@@ -132,7 +128,7 @@ h1 {
 .fight-container {
   flex: 1;
   display: none;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   gap: 3em;
 }
@@ -143,7 +139,55 @@ h1 {
   color: #DD1C1A;
 }
 
-/* .c-rock {
-  border: 4px solid #DD1C1A;
+.player-selection {
+  align-self: center;
+}
+
+.computer-selection {
+  align-self: center;
+}
+.center-column {
+  display: flex;  
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.result {
+  padding-top: 24px;
+  font-size: 36px;
+  font-weight: bold;
+
+}
+
+.btn {
+  display: none;
+  background-color: #3E64FF;
+  color: #FFFFFF;
+  padding: 11px 16px;
+  border: none;
   border-radius: 8px;
-} */
+  font-weight: bold;
+}
+
+.end-screen {  
+  flex: 1;
+  background-color: #FFF1D0;
+  padding: 1em;
+  font-size: 42px;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-reload {
+  margin-top: 88px;
+  background-color: #3E64FF;
+  color: #FFFFFF;
+  padding: 11px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+
+}

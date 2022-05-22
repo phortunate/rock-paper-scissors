@@ -118,6 +118,14 @@ const computerContainer = document.querySelector(".computer-selection");
 const playerScore = document.querySelector(".player-score");
 const computerScore = document.querySelector(".computer-score");
 const roundCount = document.querySelector(".round-count");
+const roundResult = document.querySelector(".result");
+const btnNextRound = document.querySelector(".btn");
+const centerColumn = document.querySelector(".center-column");
+const endScreen = document.querySelector(".end-screen");
+const gameResults = document.querySelector(".game-results");
+const btnReload = document.querySelector(".btn-reload");
+const gameContainer = document.querySelector(".game-container__play");
+let winner = "";
 
 playerAttacks.forEach(attack => attack.addEventListener("click", (e) => {
     if (userPrompt.style.display !== "none") userPrompt.style.display = "none";
@@ -130,14 +138,49 @@ playerAttacks.forEach(attack => attack.addEventListener("click", (e) => {
     showAnimation(computerChoice.number, () => {
         computerContainer.src=`./images/${computerChoice.attack}.png`;
         const roundWinner = playRound(playerChoice, computerChoice.attack);
+        let result = "";
         if (roundWinner === 1) {
             updateScore(playerScore);
+            result = "You Win!"
         } else if (roundWinner === 0) {
             updateScore(computerScore);
+            result = "You Lose"
         } else {
-            console.log("It's a tie");
+            result = "Tie"
         }
-        updateRound(roundCount);
+
+        if (parseInt(playerScore.textContent.slice(-1), 10) === 5) {
+            btnNextRound.textContent = "Finish";
+            winner = "Congratulations! You won the game!!!"; 
+        } else if (parseInt(computerScore.textContent.slice(-1), 10) === 5) {
+            btnNextRound.textContent = "Finish";
+            winner = "You lost. Better luck next time.";
+        }
+
+        roundResult.textContent = result;
+        if (btnNextRound.style.display !== "block") btnNextRound.style.display = "block";
+        centerColumn.style.justifyContent = "space-between";
+
+        btnNextRound.addEventListener("click", () => {
+            if (btnNextRound.textContent === "Finish") {
+                gameContainer.style.display = "none";
+                endScreen.style.display = "flex";
+                gameResults.textContent = winner;
+
+                btnReload.addEventListener("click", () => {
+                    window.location.reload();
+                }, {once : true});
+
+            } else {
+                computerAttacks[computerChoice.number -1].style.border = "none";
+                playerContainer.src="";
+                computerContainer.src="";
+                roundResult.textContent = "";
+                centerColumn.style.justifyContent = "center";
+                btnNextRound.style.display = "none";
+                updateRound(roundCount);
+            }
+        }, {once : true});
     });
 }));
 
@@ -149,8 +192,8 @@ function updateScore(score) {
 }
 
 function updateRound(round) {
-    const roundText = round.textContent.slice(0, -1);
-    const newRound = parseInt(round.textContent.slice(-1), 10) + 1;
+    const roundText = round.textContent.slice(0, round.textContent.indexOf(":") + 2);
+    const newRound = parseInt(round.textContent.slice(round.textContent.indexOf(":") + 1), 10) + 1;
     round.textContent = roundText + newRound;
 }
 
